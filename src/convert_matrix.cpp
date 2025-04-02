@@ -29,18 +29,31 @@ Quaternion ConvertMatrix::cartesianToQuaternion(Coordinate coord){
 void ConvertMatrix::setStartToDstQuaternion(){
     //q_ds = q_s x q_d^-1
 
-    // W = Ws Wd + Xs Xd + Ys Yd + Zs Zd
-    start_to_dst_quat.w = start_quat.w * dst_quat.w + start_quat.x * dst_quat.x
-                        + start_quat.y * dst_quat.y + start_quat.z * dst_quat.z;
-    // X = Ws Xd - Xs Wd - Yd Zs + Zd Ys
-    start_to_dst_quat.x = start_quat.w * dst_quat.x - start_quat.x * dst_quat.w
-                         - start_quat.z * dst_quat.y + start_quat.y * dst_quat.z;
-    // Y = Ws Yd - Xs Zd - Ys Wd + Zs Xd
-    start_to_dst_quat.y = start_quat.w * dst_quat.y - start_quat.x * dst_quat.z
-                        - start_quat.y * dst_quat.w + start_quat.z * dst_quat.x;
-    // Z = Ws Zd + Xs Yd - Ys Xd - Zs Wd
-    start_to_dst_quat.z = start_quat.w * dst_quat.z + start_quat.x * dst_quat.y
-                        - start_quat.y * dst_quat.x - start_quat.z * dst_quat.w;
+    // // W = Ws Wd + Xs Xd + Ys Yd + Zs Zd
+    // start_to_dst_quat.w = start_quat.w * dst_quat.w + start_quat.x * dst_quat.x
+    //                     + start_quat.y * dst_quat.y + start_quat.z * dst_quat.z;
+    // // X = Ws Xd - Xs Wd - Yd Zs + Zd Ys
+    // start_to_dst_quat.x = start_quat.w * dst_quat.x - start_quat.x * dst_quat.w
+    //                      - start_quat.z * dst_quat.y + start_quat.y * dst_quat.z;
+    // // Y = Ws Yd - Xs Zd - Ys Wd + Zs Xd
+    // start_to_dst_quat.y = start_quat.w * dst_quat.y - start_quat.x * dst_quat.z
+    //                     - start_quat.y * dst_quat.w + start_quat.z * dst_quat.x;
+    // // Z = Ws Zd + Xs Yd - Ys Xd - Zs Wd
+    // start_to_dst_quat.z = start_quat.w * dst_quat.z + start_quat.x * dst_quat.y
+    //                     - start_quat.y * dst_quat.x - start_quat.z * dst_quat.w;
+
+    // W = Ws Wd - Xs Xd - Ys Yd - Zs Zd
+    start_to_dst_quat.w = start_quat.w * dst_quat.w - start_quat.x * dst_quat.x
+                        - start_quat.y * dst_quat.y - start_quat.z * dst_quat.z;
+    // X = Ws Xd + Xs Wd + Yd Zs - Zd Ys
+    start_to_dst_quat.x = start_quat.w * dst_quat.x + start_quat.x * dst_quat.w
+                         + start_quat.z * dst_quat.y - start_quat.y * dst_quat.z;
+    // Y = Ws Yd + Xs Zd + Ys Wd - Zs Xd
+    start_to_dst_quat.y = start_quat.w * dst_quat.y + start_quat.x * dst_quat.z
+                        + start_quat.y * dst_quat.w - start_quat.z * dst_quat.x;
+    // Z = Ws Zd - Xs Yd + Ys Xd + Zs Wd
+    start_to_dst_quat.z = start_quat.w * dst_quat.z - start_quat.x * dst_quat.y
+                        + start_quat.y * dst_quat.x + start_quat.z * dst_quat.w;                        
 }
 
 void ConvertMatrix::makeConvertMatrix(Quaternion quat, Coordinate trans){
